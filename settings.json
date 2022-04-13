@@ -1,0 +1,236 @@
+{
+  "version": "11.4.4",
+  "defaulttheme": "default",
+  "website": {
+    "port": 1025,
+    "warning": "To run Heliactyl on a domain, you need to setup a reverse proxy, the guide is on our GitHub",
+    "secret": "6LcJcjwUAAAAAO_Xqjrtj9wWufUpYRnK6BW8lnfn"
+  },
+  "pterodactyl": {
+    "domain": "https://panel.inertium.fr",
+    "note": "Don't put a / in the domain, only put for example https://panel.heliactyl.xyz or server link wont work",
+    "key": "nkrG7OkWB3uami5Zo0FVqDbwUxTdfq1aOJddJhnPIX1RrJWz"
+  },
+  "limits": {
+    "note": "This allows you to control the maximum amount of resources anyone can buy from the resources store.",
+    "ram":1024,
+    "cpu":100,
+    "servers":1,
+    "disk":2048
+  },
+  "ads": {
+    "enabled": false,
+    "script": "Add your adsense etc here.",
+    "note": "This allows you to put adsense, adsterra, etc easily into Heliactyl."
+  },
+  "database": "sqlite://database.sqlite",
+  "api": {
+    "client": {
+       "api": {
+         "enabled": false,
+         "code": "Example API Code"
+       },
+       "j4r": {
+         "enabled": false,
+         "servers": ["example", "example"],
+         "every": {
+             "cpu": 10,
+             "ram": 512,
+             "disk": 512,
+             "servers": 0
+         },
+         "j4rads": [
+             {
+             	"name": "Example server",
+                "invite": "https://discord.gg/Tz2bkhk5Pn"
+         	 },
+             {
+                 "name": "Example server",
+                 "invite": "https://discord.gg/vSm7FGUXRf"
+         	 }
+         ]
+       },
+       "bot": {
+         "token": "Discord Bot Token",
+         "joinguild": {
+           "_comment": "The Discord bot must be in these servers and have invite permissions.",
+           "enabled": false,
+           "guildid": ["example"]
+        }
+      },
+      "webhook": {
+        "_comment": "URL of the webhook to send messages to.",
+        "webhook_url": "",
+        "auditlogs": {
+          "_comment": "This feature allows you to log actions, and get an overview of a users actions (only works if done with dashactyl, not ptero)",
+          "enabled": false,
+          "_comment2": "The types of notifications disabled. Values: ADMIN, LOGIN, SERVER, COUPONREDEEM",
+          "disabled": []
+        }
+      },
+      "passwordgenerator": {
+        "signup": true,
+        "note": "Use this to disable signups",
+        "length": 8
+      },
+      "allow": {
+        "newusers": true,
+        "regen": true,
+        "server": {
+          "create": true,
+          "modify": true,
+          "delete": true
+        },
+        "overresourcessuspend": false,
+        "renewsuspendsystem": {
+          "_comment": "This feature requires a restart in order to work. Also, this requires every server to start suspended, or else this feature would not work for some servers.",
+          "enabled": true,
+          "time": 84600,
+          "cost": 0
+        }
+      },
+      "oauth2": {
+        "_comment": "Go to https://discord.dev/ and create an application to set these up.",
+        "id": "962777002073530388",
+        "secret": "clva7G-SPDUB9f1FBQxYZhpquYsfHhZC",
+        "link": "http://node7.inertium.fr:1025",
+        "callbackpath": "/callback",
+        "prompt": true,
+
+        "ip": {
+          "trust x-forwarded-for": true,
+          "block": [],
+
+          "_comment": "'duplicate check' is an anti-alt check by IPs.",
+          "duplicate check": false,
+
+          "_comment2": "'cookie alt check' is an anti-alt check by cookies.",
+          "cookie alt check": true
+        }
+      },
+      "ratelimits": {
+        "enabled": true,
+
+        "trust x-forwarded-for": true,
+
+        "requests": 30,
+        "per second": 20
+      },
+      "packages": {
+        "default": "default",
+        "list": {
+          "default": {
+            "ram": 512,
+            "disk": 750,
+            "cpu": 75,
+            "servers": 1
+          }
+        }
+      },
+      "locations": {
+        "1": {
+          "name": "Game 08",
+
+          "_comment": "Make 'package' be null to allow anyone with enough resources in their plan to create a server with this location. Also, make the 'package' variable an array, like [], with the location names with quotes to make a user be required to have a plan in order to use the package.",
+          "package": null
+        }
+      },
+      "eggs": {
+       "nodejs": {
+          "display": "NodeJs",
+          "minimum": {
+            "ram": 512,
+            "disk": 512,
+            "cpu": 50
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 18,
+            "docker_image": "ghcr.io/parkervcp/yolks:nodejs_12",
+            "startup": "if [[ -d .git ]] && [[ {{AUTO_UPDATE}} == '1' ]]; then git pull; fi; if [[ ! -z ${NODE_PACKAGES} ]]; then /usr/local/bin/npm install ${NODE_PACKAGES}; fi; if [[ ! -z ${UNNODE_PACKAGES} ]]; then /usr/local/bin/npm uninstall ${UNNODE_PACKAGES}; fi; if [ -f /home/container/package.json ]; then /usr/local/bin/npm install; fi; /usr/local/bin/node /home/container/{{BOT_JS_FILE}}",
+            "environment": {
+              "BOT_JS_FILE": "index.js",
+              "AUTO_UPDATE": "0",
+              "USER_UPLOAD": "0"
+            },
+            "feature_limits": {
+              "databases": 4,
+              "backups": 4
+            }
+          }
+        },
+        "python": {
+          "display": "Python",
+          "minimum": {
+            "ram": 512,
+            "disk": 512,
+            "cpu": 50
+          },
+          "maximum": {
+            "ram": null,
+            "disk": null,
+            "cpu": null
+          },
+          "info": {
+            "egg": 21,
+            "docker_image": "ghcr.io/parkervcp/yolks:python_3.8",
+            "startup": "if [[ -d .git ]] && [[ {{AUTO_UPDATE}} == '1' ]]; then git pull; fi; if [[ ! -z {{PY_PACKAGES}} ]]; then pip install -U --prefix .local {{PY_PACKAGES}}; fi; if [[ -f /home/container/${REQUIREMENTS_FILE} ]]; then pip install -U --prefix .local -r ${REQUIREMENTS_FILE}; fi; /usr/local/bin/python /home/container/{{BOT_PY_FILE}}",
+            "environment": {
+              "BOT_PY_FILE": "bot.py",
+              "REQUIREMENTS_FILE": "requirements.txt",
+              "AUTO_UPDATE": "0",
+              "USER_UPLOAD": "0"
+            },
+            "feature_limits": {
+              "databases": 4,
+              "backups": 4
+            }
+          }
+        }
+      },
+      "coins": {
+        "enabled": true,
+        "store": {
+          "_comment": "The cost and per is not intended to used with 0. This is not intended to sell resources for coins. Make sure coins are enabled too, or else there can be errors.",
+          "enabled": false,
+          "ram": {
+            "cost": 100,
+            "per": 1
+          },
+          "disk": {
+            "cost": 100,
+            "per": 1
+          },
+          "cpu": {
+            "cost": 100,
+            "per": 1
+          },
+          "servers": {
+            "cost": 100,
+            "per": 1
+          }
+        }
+      }
+    },
+    "arcio": {	
+      "_comment": "You can make an arc.io widget on https://arc.io. You can get money using arc.io.",	
+      "enabled": false,	
+      "widgetid": "This usually a 6 digit ID that you can find on Arc Installation page",	
+      "afk page": {	
+        "_comment": "This will not effect any current arc.io sessions, and will require a restart to kick everyone out of the websocket sesison.",	
+        "_comment2": "Make sure coins are enabled if you choose to enable this option!",	
+        "enabled": false,	
+        "_comment3": "If you change the path, you need to restart for it to take full effect.",	
+        "path": "afkwspath",	
+        "_comment4": "This afk page will give the users [coins variable] coins every [every variable] seconds.",	
+        "every": 60,	
+        "_comment5": "The coins variable is meant to not be under 1. There may be bugs if the coins variable is less than 1.",	
+        "coins": 1
+      }	
+    }
+  }
+}
